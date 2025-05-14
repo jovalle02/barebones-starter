@@ -31,6 +31,21 @@ To see CMS edits in action:
 
 ---
 
+## Technical Decisions & Rationale
+
+This component was built using the TinaCMS Starter Kit with Next.js App Router to ensure real-time visual editing via Tina Cloud. I chose to build the newsletter signup form as a standalone, reusable React component (`NewsletterSignup`) and used TypeScript for strict prop validation and clarity.
+
+To satisfy the CMS integration requirements, I defined a custom schema (`components`) where each field—title, description, placeholder, button text, and privacy consent—can be edited through the TinaCMS sidebar. Rich text fields were rendered using `TinaMarkdown` to support markdown formatting.
+
+I opted for TailwindCSS to streamline responsive design across breakpoints and ensure fast layout iteration. The layout was kept clean and minimal, prioritizing accessibility and clarity. I used GSAP for subtle transitions: when the form is submitted, the inputs fade out and a success message fades in, enhancing user experience without relying on external services.
+
+One of the main technical challenges was the issue with TinaCMS content not updating due to Next.js caching. After researching the issue and referencing community discussions ([issue #556](https://github.com/tinacms/tina-cloud-starter/issues/556)), I resolved it by adding `fetchCache = 'force-no-store'` to the route. While not best practice for production, this ensured real-time edits during development and demonstrated a deeper understanding of how caching interacts with CMS hydration.
+
+Additionally, I redesigned the owl mascot as an optimized SVG in Figma, balancing playful design with performance. Overall, every decision—tech stack, layout, styling, animation, CMS schema—was made to prioritize clarity, maintainability, and a seamless CMS editing experience.
+
+---
+
+
 ## 📨 Submission
 
 This submission includes:
