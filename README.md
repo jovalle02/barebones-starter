@@ -1,47 +1,46 @@
-This is a [Tina CMS](https://tina.io/) project.
+## Example Page
 
-## Local Development
+The file [`app/client-page.tsx`](./app/client-page.tsx) demonstrates how the `NewsletterSignup` component integrates with TinaCMS. It uses the `useTina()` hook to hydrate the page with real-time CMS content, which is defined in `newsletterSignup.json` and editable via the Tina Cloud sidebar.
 
-Install the project's dependencies:
+To see CMS edits in action:
 
-> [!NOTE]  
-> [Do you know the best package manager for Node.js?](https://www.ssw.com.au/rules/best-package-manager-for-node/) Using the right package manager can greatly enhance your development workflow. We recommend using pnpm for its speed and efficient handling of dependencies. Learn more about why pnpm might be the best choice for your projects by checking out this rule from SSW.
+1. Visit the deployed app: [Live Site on Vercel](https://your-vercel-deployment-link.vercel.app)
+2. Log into the TinaCMS sidebar at `/admin` to edit content in real time.
 
-```
-pnpm install
-```
+> Content edits reflect instantly thanks to `fetchCache = 'force-no-store'` (used as a workaround for Next.js caching issues).
 
-Run the project locally:
+---
 
-```
-pnpm dev
-```
+## Design Notes
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- I redesigned the owl mascot as a responsive SVG in **Figma**, optimized for use across screen sizes.
+- The layout prioritizes clarity and responsiveness with:
+  - A clean form hierarchy
+  - TailwindCSS spacing and contrast utilities
+- GSAP is used to deliver a subtle transition between form and confirmation feedback.
 
-### Building the Starter Locally (Using the hosted content API)
+---
 
-Replace the `.env.example`, with `.env`
+## Developer’s Note
 
-```
-NEXT_PUBLIC_TINA_CLIENT_ID=<get this from the project you create at app.tina.io>
-TINA_TOKEN=<get this from the project you create at app.tina.io>
-NEXT_PUBLIC_TINA_BRANCH=<Specify the branch with Tina configured>
-```
+> I spent significant time debugging a TinaCMS/Next.js caching issue that blocked live content updates. After investigating community threads (see [issue #556](https://github.com/tinacms/tina-cloud-starter/issues/556)), I resolved it by applying the `force-no-store` workaround.
+>
+> This hands-on debugging deepened my understanding of Next.js rendering behavior and CMS-driven dynamic content flows.
+>
+> I also created and styled the owl mascot using Figma and SVG techniques, keeping performance and responsiveness in mind.
 
-Build the project:
+---
 
-```bash
-pnpm build
-```
+## 📨 Submission
 
-## Learn More
+This submission includes:
 
-To learn more about Tina, take a look at the following resources:
+- GitHub Repository ✅
+- Vercel Deployment 🌐 [Live Site]([https://your-vercel-deployment-link.vercel.app](https://barebones-starter-nu-sandy.vercel.app/))
+- TinaCMS Visual Editor Access 🔧
 
-- [Tina Docs](https://tina.io/docs)
-- [Getting started](https://tina.io/docs/setup-overview/)
+For any questions, feel free to contact me.
+ja.ovalle2@uniandes.edu.co
+---
 
-You can check out [Tina Github repository](https://github.com/tinacms/tinacms) - your feedback and contributions are welcome!
-
-## [Deploy on Vercel](https://tina.io/guides/tina-cloud/add-tinacms-to-existing-site/deployment/)
+**Built using TinaCMS, Next.js, and TailwindCSS**
