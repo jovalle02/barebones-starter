@@ -63,7 +63,7 @@ export default function NewsletterSignup({
 
       {/* Title and description */}
       <div className="text-left mb-6">
-        <div className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+        <div className="text-3xl md:text-5  xl font-extrabold text-slate-900 leading-tight">
           <TinaMarkdown content={title} />
         </div>
         <p className="text-gray-500 text-sm md:text-lg mt-1">{description}</p>
@@ -91,7 +91,7 @@ export default function NewsletterSignup({
           />
 
           {/* Consent checkbox */}
-          <div className="flex items-start gap-2 mt-2">
+          {!submitted && (<div className="flex items-start gap-2 mt-2">
             <input
               type="checkbox"
               name="privacy"
@@ -103,7 +103,7 @@ export default function NewsletterSignup({
               {privacyText}
             </label>
           </div>
-
+          )}
           {/* Submit button */}
           <button
             type="submit"
