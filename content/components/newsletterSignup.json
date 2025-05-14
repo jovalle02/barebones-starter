@@ -1,7 +1,7 @@
 {
-  "title": "a\n",
-  "description": "Sign up for weekly updates and offers.",
-  "placeholder": "Enter your email.",
+  "title": "Join our super rad besties newsletter - **The Percha**\n",
+  "description": "Your weekly update from the treetop.",
+  "placeholder": "abc@company.com",
   "buttonText": "Subscribe",
-  "privacyText": "I agree to the privacy policy"
+  "privacyText": "I agree to receive communications and accept the privacy policy."
 }
