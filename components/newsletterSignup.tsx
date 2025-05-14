@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { TinaMarkdown, TinaMarkdownContent } from "tinacms/dist/rich-text";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
 import gsap from "gsap";
 
 type Props = {
