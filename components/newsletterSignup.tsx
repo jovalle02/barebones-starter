@@ -1,11 +1,11 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { TinaMarkdown, TinaMarkdownContent } from "tinacms/dist/rich-text";
 import gsap from "gsap";
 
 type Props = {
   title: any;
-  description: string;
+  description: any;
   placeholder: string;
   buttonText: string;
   privacyText?: string;
@@ -61,12 +61,23 @@ export default function NewsletterSignup({
         />
       </div>
 
-      {/* Title and description */}
+      {/* Renders the title, using TinaMarkdown if it's a rich-text object, or fallback to plain text */}
       <div className="text-left mb-6">
-        <div className="text-3xl md:text-5  xl font-extrabold text-slate-900 leading-tight">
-          <TinaMarkdown content={title} />
+        <div className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+          {title?.type === "root" ? (
+            <TinaMarkdown content={title} />
+          ) : (
+            <p>{title}</p>
+          )}
         </div>
-        <p className="text-gray-500 text-sm md:text-lg mt-1">{description}</p>
+        {/* Renders the description, handling both rich-text and plain string formats */}
+        <div className="text-gray-500 text-sm md:text-lg mt-1">
+          {description?.type === "root" ? (
+            <TinaMarkdown content={description} />
+          ) : (
+            <p>{description}</p>
+          )}
+        </div>
       </div>
 
       {/* Signup form */}
