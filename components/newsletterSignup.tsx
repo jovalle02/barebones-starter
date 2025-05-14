@@ -63,7 +63,7 @@ export default function NewsletterSignup({
 
       {/* Renders the title, using TinaMarkdown if it's a rich-text object, or fallback to plain text */}
       <div className="text-left mb-6">
-        <div className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+        <div className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight break-words whitespace-pre-wrap">
           {title?.type === "root" ? (
             <TinaMarkdown content={title} />
           ) : (
@@ -71,7 +71,7 @@ export default function NewsletterSignup({
           )}
         </div>
         {/* Renders the description, handling both rich-text and plain string formats */}
-        <div className="text-gray-500 text-sm md:text-lg mt-1">
+        <div className="text-gray-500 text-sm md:text-lg mt-1 break-words whitespace-pre-wrap">
           {description?.type === "root" ? (
             <TinaMarkdown content={description} />
           ) : (
@@ -102,7 +102,7 @@ export default function NewsletterSignup({
           />
 
           {/* Consent checkbox */}
-          {!submitted && (<div className="flex items-start gap-2 mt-2">
+          {!submitted && (<div className="flex items-start gap-2 mt-2 break-words whitespace-pre-wrap">
             <input
               type="checkbox"
               name="privacy"
@@ -118,7 +118,7 @@ export default function NewsletterSignup({
           {/* Submit button */}
           <button
             type="submit"
-            className="cursor-pointer w-full sm:w-[30%] md:w-[25%] mt-2 px-6 py-3 bg-[#032d36] text-white text-sm font-semibold rounded-xl hover:bg-[#054656] transition"
+            className="cursor-pointer w-full sm:w-[30%] md:w-[25%] mt-2 px-6 py-3 bg-[#032d36] text-white text-sm font-semibold rounded-xl hover:bg-[#054656] transition break-words whitespace-pre-wrap"
           >
             {buttonText}
           </button>
