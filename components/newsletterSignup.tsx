@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
+import gsap from "gsap";
 
 type Props = {
-  title: any; // Rich text object
+  title: any;
   description: string;
   placeholder: string;
   buttonText: string;
-  privacyText: string;
+  privacyText?: string;
 };
 
 export default function NewsletterSignup({
@@ -17,43 +18,108 @@ export default function NewsletterSignup({
   buttonText,
   privacyText,
 }: Props) {
+  const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const inputGroupRef = useRef<HTMLDivElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+
+  // Handles form submission with GSAP transition
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const consent = (form.elements.namedItem("privacy") as HTMLInputElement).checked;
+
+    console.log("Email:", email, "| Consent:", consent);
+
+    // Animate form out and success message in
+    if (inputGroupRef.current && successRef.current) {
+      gsap.to(inputGroupRef.current, {
+        opacity: 0,
+        y: -10,
+        duration: 0.4,
+        onComplete: () => {
+          setSubmitted(true);
+          gsap.fromTo(
+            successRef.current,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.5 }
+          );
+        },
+      });
+    }
+  };
+
   return (
-    <section className="w-full max-w-xl mx-auto p-8 bg-white rounded-xl shadow-md">
-      <div className="text-center mb-6">
-        <div className="text-3xl font-bold mb-2 text-gray-800">
-          <TinaMarkdown content={title} />
-        </div>
-        <p className="text-gray-500">{description}</p>
+    <section className="absolute md:w-[75%] max-w-2xl mx-auto p-10 bg-gray-100 rounded-2xl shadow-xl mt-50">
+      {/* Owl mascot */}
+      <div className="absolute -top-15 left-6 w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 md:-top-31 md:left-6 sm:-top-25 sm:left-10">
+        <img
+          src="/uploads/owl.svg"
+          alt="Newsletter mascot"
+          className="w-full h-full object-contain"
+        />
       </div>
 
+      {/* Title and description */}
+      <div className="text-left mb-6">
+        <div className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+          <TinaMarkdown content={title} />
+        </div>
+        <p className="text-gray-500 text-sm md:text-lg mt-1">{description}</p>
+      </div>
+
+      {/* Signup form */}
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const email = (e.currentTarget.email as HTMLInputElement).value;
-          const consent = (e.currentTarget.privacy as HTMLInputElement).checked;
-          console.log("Email:", email, "| Consent:", consent);
-        }}
+        onSubmit={handleSubmit}
+        ref={formRef}
         className="flex flex-col gap-4"
       >
-        <input
-          type="email"
-          name="email"
-          placeholder={placeholder}
-          required
-          className="px-4 py-2 border border-gray-300 rounded-md"
-        />
-
-        <label className="flex items-center gap-2 text-sm text-gray-600">
-          <input type="checkbox" name="privacy" required />
-          {privacyText}
+        <label className="text-sm font-bold text-gray-800" htmlFor="email">
+          Email Address
         </label>
 
-        <button
-          type="submit"
-          className="mt-2 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+        {/* Inputs group (disappears on submit) */}
+        <div ref={inputGroupRef} className="flex flex-col gap-4">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder={placeholder}
+            required
+            className="w-full px-4 py-3 text-base border border-gray-300 bg-white rounded-none shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {/* Consent checkbox */}
+          <div className="flex items-start gap-2 mt-2">
+            <input
+              type="checkbox"
+              name="privacy"
+              id="privacy"
+              required
+              className="cursor-pointer mt-1"
+            />
+            <label htmlFor="privacy" className="text-sm text-gray-600">
+              {privacyText}
+            </label>
+          </div>
+
+          {/* Submit button */}
+          <button
+            type="submit"
+            className="cursor-pointer w-full sm:w-[30%] md:w-[25%] mt-2 px-6 py-3 bg-[#032d36] text-white text-sm font-semibold rounded-xl hover:bg-[#054656] transition"
+          >
+            {buttonText}
+          </button>
+        </div>
+
+        {/* Success feedback (shown after submission) */}
+        <div
+          ref={successRef}
+          className="absolute pointer-events-none left-0 right-0 mt-4 bg-green-100 text-green-800 px-4 py-3 rounded-xl font-semibold text-center z-10 opacity-0 mx-10 mt-25"
         >
-          {buttonText}
-        </button>
+          ✅ Thanks for subscribing!
+        </div>
       </form>
     </section>
   );
