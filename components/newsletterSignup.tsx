@@ -55,7 +55,7 @@ export default function NewsletterSignup({
       {/* Owl mascot */}
       <div className="absolute -top-15 left-6 w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 md:-top-31 md:left-6 sm:-top-25 sm:left-10">
         <img
-          src="/uploads/owl.svg"
+          src="/uploads/OWL.svg"
           alt="Newsletter mascot"
           className="w-full h-full object-contain"
         />
